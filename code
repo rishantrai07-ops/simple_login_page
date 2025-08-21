@@ -1,0 +1,38 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
+
+driver = webdriver.Chrome()   
+driver.get("https://demo.testfire.net/")
+
+driver.maximize_window()
+time.sleep(2)
+
+driver.find_element(By.LINK_TEXT, "Sign In").click()
+time.sleep(2)
+
+driver.find_element(By.ID, "uid").send_keys("jsmith")   
+driver.find_element(By.ID, "passw").send_keys("demo1234")
+driver.find_element(By.NAME, "btnSubmit").click()
+time.sleep(2)
+
+pages = [
+    ("View Account Summary", "link text", "View Account Summary"),
+    ("Transfer Funds", "link text", "Transfer Funds"),
+    ("Pay Bills", "link text", "Pay Bills"),
+    ("View Recent Transactions", "link text", "View Recent Transactions"),
+    ("Personal Profile", "link text", "Personal Profile"),
+]
+
+for name, selector, value in pages:
+    driver.find_element(By.LINK_TEXT, value).click()
+    print(f"Visited: {name}")
+    time.sleep(2)
+    driver.back()
+    time.sleep(2)
+
+driver.find_element(By.LINK_TEXT, "Sign Off").click()
+time.sleep(2)
+
+driver.quit()

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Secure Notes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-primary mb-4">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">Secure Notes</span>
+            <span class="text-white">{{ username }}</span>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="card shadow p-4 mb-4">
+            <h3 class="mb-3">Welcome, {{ username }}!</h3>
+            <span class="badge bg-info text-dark">Your IP: {{ user_ip }}</span>
+            <hr>
+            <form method="post" class="mb-4">
+                <label for="note" class="form-label">Write a new note:</label>
+                <textarea name="note" id="note" class="form-control mb-3" rows="2" placeholder="Your note..." required></textarea>
+                <button type="submit" class="btn btn-success">Add note</button>
+            </form>
+            <h5>Your Notes:</h5>
+            {% if notes %}
+            <ul class="list-group mb-3">
+                {% for note in notes %}
+                    <li class="list-group-item">{{ note }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-muted">No notes yet.</p>
+            {% endif %}
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-secondary">Logout</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
